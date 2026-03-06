@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Update activity
-        run: echo "Last update: $(date)" > activitys
+        run: echo "Last update: $(date)" > activity
 
       - name: Commit and push
         run: |

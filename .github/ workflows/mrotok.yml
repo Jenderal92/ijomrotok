@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Update file
         run: |
@@ -25,7 +23,7 @@ jobs:
       - name: Commit changes
         run: |
           git config --global user.name "Jenderal92"
-          git config --global user.email "Jenderal92@users.noreply.github.com"
+          git config --global user.email "Jenderal1337@gmail.com"
           git add IJOMROTOK
           git commit -m "update activity $(date)" || echo "no change"
 

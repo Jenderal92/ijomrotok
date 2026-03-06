@@ -1,4 +1,4 @@
-name: Natural Activity
+name: Mrotok Activity
 
 on:
   schedule:
@@ -16,20 +16,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate random commits
+      - name: Update file
         run: |
-          git config --global user.name "dev-activity"
+          echo "Update $(date)" > IJOMROTOK
+
+      - name: Commit
+        run: |
+          git config --global user.name "activity-bot"
           git config --global user.email "activity@github.com"
-
-          COMMITS=$((RANDOM % 4 + 1))
-
-          for i in $(seq 1 $COMMITS)
-          do
-            echo "Update $(date) $RANDOM" > ACTIVITY
-            git add ACTIVITY
-            git commit -m "dev update $(date) $RANDOM" || echo "no change"
-            sleep $((RANDOM % 120))
-          done
+          git add IJOMROTOK
+          git commit -m "update activity $(date)" || echo "no change"
 
       - name: Push
         run: git push

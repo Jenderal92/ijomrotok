@@ -1,28 +1,33 @@
-name: Daily Commit
+name: Daily Activity
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 */4 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  commit:
+  activity:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Update activity
-        run: echo "Last update: $(date)" > ACTIVITY
-
-      - name: Commit and push
+      - name: Random activity
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add ACTIVITY
-          git commit -m "Daily activity $(date)" || echo "No changes"
-          git push
+          COUNT=$((RANDOM % 5 + 1))
+          for i in $(seq 1 $COUNT)
+          do
+            echo "Update $(date) $RANDOM" > ACTIVITY
+            git config --global user.name "github-actions"
+            git config --global user.email "actions@github.com"
+            git add ACTIVITY
+            git commit -m "Activity update $(date) $RANDOM" || echo "No change"
+            sleep $((RANDOM % 20))
+          done
+
+      - name: Push changes
+        run: git push

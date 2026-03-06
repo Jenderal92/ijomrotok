@@ -13,19 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Update file
         run: |
           echo "Update $(date)" > IJOMROTOK
 
-      - name: Commit
+      - name: Commit changes
         run: |
-          git config --global user.name "activity-bot"
-          git config --global user.email "activity@github.com"
+          git config --global user.name "Jenderal92"
+          git config --global user.email "Jenderal92@users.noreply.github.com"
           git add IJOMROTOK
           git commit -m "update activity $(date)" || echo "no change"
 
-      - name: Push
+      - name: Push changes
         run: git push

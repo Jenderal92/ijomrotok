@@ -3,7 +3,7 @@ name: Mrotok Activity
 on:
   schedule:
     - cron: "0 */2 * * *"
-  workflow_dispatch:
+  workflow_dispatch:      
 
 permissions:
   contents: write
@@ -15,17 +15,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Update file
         run: |
-          echo "Update $(date)" > IJOMROTOK
+          echo "Update: $(date)" > IJOMROTOK
 
-      - name: Commit changes
+      - name: Commit and Push
         run: |
+          # Menggunakan email noreply GitHub agar privasi terjaga & grafik ijo
           git config --global user.name "Jenderal92"
-          git config --global user.email "Jenderal1337@gmail.com"
+          git config --global user.email "59664965+Jenderal92@users.noreply.github.com"
+          
           git add IJOMROTOK
-          git commit -m "update activity $(date)" || echo "no change"
-
-      - name: Push changes
-        run: git push
+          
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: update contribution $(date)"
+            git push origin main
+          fi

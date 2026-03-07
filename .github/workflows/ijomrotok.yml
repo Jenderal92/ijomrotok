@@ -24,7 +24,7 @@ jobs:
 
       - name: Commit and Push
         run: |
-          # Menggunakan email noreply GitHub agar privasi terjaga & grafik ijo
+     
           git config --global user.name "Jenderal92"
           git config --global user.email "59664965+Jenderal92@users.noreply.github.com"
           

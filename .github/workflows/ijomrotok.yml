@@ -2,11 +2,11 @@ name: Mrotok Activity
 
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 */2 * * *" 
   workflow_dispatch:      
 
 permissions:
-  contents: write
+  contents: write         
 
 jobs:
   activity:
@@ -16,23 +16,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  
 
       - name: Update file
         run: |
+
           echo "Update: $(date)" > IJOMROTOK
 
       - name: Commit and Push
         run: |
-     
+
           git config --global user.name "Jenderal92"
           git config --global user.email "59664965+Jenderal92@users.noreply.github.com"
           
           git add IJOMROTOK
           
+
           if git diff --staged --quiet; then
-            echo "No changes"
+            echo "Tidak ada perubahan."
           else
             git commit -m "chore: update contribution $(date)"
-            git push origin main
+            
+            git push origin main --force
           fi

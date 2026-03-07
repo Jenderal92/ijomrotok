@@ -2,7 +2,8 @@ name: Mrotok Activity
 
 on:
   schedule:
-    - cron: "0 */2 * * *" 
+
+    - cron: "*/30 * * * *" 
   workflow_dispatch:      
 
 permissions:
@@ -18,24 +19,20 @@ jobs:
         with:
           fetch-depth: 0  
 
-      - name: Update file
+      - name: Update activity
         run: |
-
-          echo "Update: $(date)" > IJOMROTOK
+          echo "Pulse: $(date -u)" > IJOMROTOK
 
       - name: Commit and Push
         run: |
-
           git config --global user.name "Jenderal92"
           git config --global user.email "59664965+Jenderal92@users.noreply.github.com"
           
           git add IJOMROTOK
           
-
           if git diff --staged --quiet; then
-            echo "Tidak ada perubahan."
+            echo "No changes."
           else
-            git commit -m "chore: update contribution $(date)"
-            
+            git commit -m "chore: sync activity $(date -u +'%H:%M')"
             git push origin main --force
           fi

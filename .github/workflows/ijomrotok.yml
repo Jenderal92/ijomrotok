@@ -3,7 +3,7 @@ name: Mrotok Activity
 on:
   schedule:
 
-    - cron: "*/30 * * * *" 
+    - cron: "0 0-23 * * *" 
   workflow_dispatch:      
 
 permissions:
